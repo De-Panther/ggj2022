@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 534e247c370a69246804ebbd1a68135e, type: 3}
   m_Name: BlockRedData
   m_EditorClassIdentifier: 
-  color: {r: 0.8862745, g: 0.22352941, b: 0.23137255, a: 1}
+  material: {fileID: 2100000, guid: 5b5db62f7b7dac34790ea182b70ddf0b, type: 2}
+  inverseMaterial: {fileID: 2100000, guid: 0c2f5374ee770a6448378eb8ba263c29, type: 2}
   shape: 0
   inverseShape: 0
-  prefab: {fileID: 2111278641755152585, guid: 8f559f42d399e164e8d85a49bebfa3ba, type: 3}
+  visual: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  inverseVisual: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  visualScale: {x: 0.05, y: 0.05, z: 0.1}
+  inverseVisualScale: {x: 0.05, y: 0.05, z: 0.1}

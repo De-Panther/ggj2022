@@ -9,26 +9,36 @@ public class BlockData : ScriptableObject
     blockPlusTriangle,
     blockMinusTriangle,
     blockPlusCube,
-    blockMinusCube
+    blockMinusCube,
+    blockPlusCircle,
+    blockMinusCircle
   }
 
   [SerializeField]
-  private Color color;
+  private Material material;
+  [SerializeField]
+  private Material inverseMaterial;
   [SerializeField]
   private ShapeType shape;
   [SerializeField]
   private ShapeType inverseShape;
   [SerializeField]
-  private Block prefab;
+  private Mesh visual;
+  [SerializeField]
+  private Mesh inverseVisual;
+  [SerializeField]
+  private Vector3 visualScale;
+  [SerializeField]
+  private Vector3 inverseVisualScale;
 
-  public Color GetColor()
+  public Material GetMaterial()
   {
-    return color;
+    return material;
   }
 
-  public Color GetInverseColor()
+  public Material GetInverseMaterial()
   {
-    return new Color(1f-color.r, 1f-color.g, 1f-color.b);
+    return inverseMaterial;
   }
 
   public ShapeType GetShape()
@@ -39,5 +49,25 @@ public class BlockData : ScriptableObject
   public ShapeType GetInverseShape()
   {
     return inverseShape;
+  }
+
+  public Mesh GetVisual()
+  {
+    return visual;
+  }
+
+  public Mesh GetInverseVisual()
+  {
+    return inverseVisual;
+  }
+
+  public Vector3 GetVisualScale()
+  {
+    return visualScale;
+  }
+
+  public Vector3 GetInverseVisualScale()
+  {
+    return inverseVisualScale;
   }
 }

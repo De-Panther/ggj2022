@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 534e247c370a69246804ebbd1a68135e, type: 3}
+  m_Name: BlockRedMinusCircleData
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 5b5db62f7b7dac34790ea182b70ddf0b, type: 2}
+  inverseMaterial: {fileID: 2100000, guid: 0c2f5374ee770a6448378eb8ba263c29, type: 2}
+  shape: 6
+  inverseShape: 5
+  visual: {fileID: -5495902117074765545, guid: fd6cd2963b9d78b40a589a197c73a8f2, type: 3}
+  inverseVisual: {fileID: -7387706064836869012, guid: d8b6b2b0640d6b24295dbeaa5ffc9fe9, type: 3}
+  visualScale: {x: 0.05, y: 0.05, z: 0.1}
+  inverseVisualScale: {x: 0.05, y: 0.05, z: 0.1}

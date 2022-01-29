@@ -4,30 +4,95 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-  [SerializeField]
-  private BlockData blockData;
+  public static System.Action OnInUseDropped;
 
   [SerializeField]
-  private Transform visual;
+  private BlockData blockData;
+  [SerializeField]
+  private bool isRight;
+  [SerializeField]
+  private Visual visual;
+  [SerializeField]
+  private Transform visualTransform;
+  [SerializeField]
+  private MouseDragObject mouseDragObject;
+
+  private bool inUse = false;
+  private bool isHeld = false;
+  private Transform usedSlot;
+
+  void OnEnable()
+  {
+    mouseDragObject.OnHeld += HandleOnHeld;
+  }
+
+  void OnDisable()
+  {
+    mouseDragObject.OnHeld -= HandleOnHeld;
+  }
+
+  public void HandleOnHeld(bool held)
+  {
+    isHeld = held;
+    if (inUse && !isHeld)
+    {
+      if (usedSlot != null)
+      {
+        transform.SetPositionAndRotation(usedSlot.position, usedSlot.rotation);
+      }
+      OnInUseDropped?.Invoke();
+    }
+  }
+
+  public bool InUse()
+  {
+    return inUse;
+  }
+
+  public bool IsHeld()
+  {
+    return isHeld;
+  }
+
+  public void Init(BlockData blockData, bool isRight)
+  {
+    this.blockData = blockData;
+    this.isRight = isRight;
+    if (isRight)
+    {
+      visual.shapeTransform.localScale = blockData.GetVisualScale();
+      visual.shapeRenderer.sharedMaterial = blockData.GetMaterial();
+      visual.shapeMeshFilter.sharedMesh = blockData.GetVisual();
+    }
+    else
+    {
+      visual.shapeTransform.localScale = blockData.GetInverseVisualScale();
+      visual.shapeRenderer.sharedMaterial = blockData.GetInverseMaterial();
+      visual.shapeMeshFilter.sharedMesh = blockData.GetInverseVisual();
+    }
+  }
 
   public BlockData GetBlockData()
   {
     return blockData;
   }
 
+  public bool IsRight()
+  {
+    return isRight;
+  }
+
   public void MagnetVisualToSlot(Transform slot)
   {
-    visual.SetParent(slot, true);
-    visual.localPosition = Vector3.zero;
-    visual.localRotation = Quaternion.identity;
-    visual.localScale = Vector3.one;
+    usedSlot = slot;
+    inUse = true;
+    visual.shapeRenderer.enabled = false;
   }
 
   public void ReturnVisual()
   {
-    visual.SetParent(transform, true);
-    visual.localPosition = Vector3.zero;
-    visual.localRotation = Quaternion.identity;
-    visual.localScale = Vector3.one;
+    usedSlot = null;
+    inUse = false;
+    visual.shapeRenderer.enabled = true;
   }
 }
