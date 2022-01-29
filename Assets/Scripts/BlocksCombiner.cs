@@ -7,6 +7,11 @@ public class BlocksCombiner : MonoBehaviour
   public static System.Action OnCombine;
 
   [SerializeField]
+  private Transform towerBaseRight;
+  [SerializeField]
+  private Transform towerBaseLeft;
+
+  [SerializeField]
   private Transform slotRight;
   [SerializeField]
   private Transform slotLeft;
@@ -70,7 +75,34 @@ public class BlocksCombiner : MonoBehaviour
       && slotRightBlock.InUse() && !slotRightBlock.IsHeld()
       && slotLeftBlock.InUse() && !slotLeftBlock.IsHeld())
     {
-      floorsCount++;
+      var visualRight = GetVisualRight(floorsCount);
+      var visualLeft = GetVisualLeft(floorsCount);
+      if (slotRightBlockData.IsColorInverse(slotLeftBlockData)
+          ||slotRightBlockData.IsShapeInverse(slotLeftBlockData))
+      {
+        visualRight.shapeTransform.SetPositionAndRotation(towerBaseRight.position + new Vector3(0, 0.05f * floorsCount, 0), towerBaseRight.rotation);
+        visualLeft.shapeTransform.SetPositionAndRotation(towerBaseLeft.position + new Vector3(0, 0.05f * floorsCount, 0), towerBaseLeft.rotation);
+        visualRight.shapeRenderer.enabled = true;
+        visualLeft.shapeRenderer.enabled = true;
+        floorsCount = Mathf.Max(0, floorsCount + 1);
+      }
+      else
+      {
+        visualRight.shapeRenderer.enabled = false;
+        visualLeft.shapeRenderer.enabled = false;
+        //floorsCount = Mathf.Max(0, floorsCount - 1);
+      }
+
+      slotRightBlock.Consume();
+      slotLeftBlock.Consume();
+
+      slotRightOpen = true;
+      slotLeftOpen = true;
+      slotRightBlock = null;
+      slotLeftBlock = null;
+      slotRightBlockData = null;
+      slotLeftBlockData = null;
+
       OnCombine?.Invoke();
     }
   }

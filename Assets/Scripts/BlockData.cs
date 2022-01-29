@@ -70,4 +70,14 @@ public class BlockData : ScriptableObject
   {
     return inverseVisualScale;
   }
+
+  public bool IsColorInverse(BlockData blockData)
+  {
+    return inverseMaterial == blockData.inverseMaterial;
+  }
+
+  public bool IsShapeInverse(BlockData blockData)
+  {
+    return inverseShape == blockData.inverseShape && inverseShape != ShapeType.block;
+  }
 }

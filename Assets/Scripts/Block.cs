@@ -95,4 +95,9 @@ public class Block : MonoBehaviour
     inUse = false;
     visual.shapeRenderer.enabled = true;
   }
+
+  public void Consume()
+  {
+    Destroy(gameObject);
+  }
 }
