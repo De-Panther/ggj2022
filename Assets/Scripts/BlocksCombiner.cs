@@ -7,9 +7,9 @@ public class BlocksCombiner : MonoBehaviour
   public static System.Action OnCombine;
 
   [SerializeField]
-  private Transform towerBaseRight;
+  private Transform[] towerBaseRight;
   [SerializeField]
-  private Transform towerBaseLeft;
+  private Transform[] towerBaseLeft;
 
   [SerializeField]
   private Transform slotRight;
@@ -80,8 +80,19 @@ public class BlocksCombiner : MonoBehaviour
       if (slotRightBlockData.IsColorInverse(slotLeftBlockData)
           ||slotRightBlockData.IsShapeInverse(slotLeftBlockData))
       {
-        visualRight.shapeTransform.SetPositionAndRotation(towerBaseRight.position + new Vector3(0, 0.05f * floorsCount, 0), towerBaseRight.rotation);
-        visualLeft.shapeTransform.SetPositionAndRotation(towerBaseLeft.position + new Vector3(0, 0.05f * floorsCount, 0), towerBaseLeft.rotation);
+        //var towerBaseRight = floorsCount%2 == 0 ? towerBaseRight1 : towerBaseRight2;
+        //var towerBaseLeft = floorsCount%2 == 0 ? towerBaseLeft1 : towerBaseLeft2;
+        int towerBase = 0;
+        if (floorsCount%3 == 0)
+        {
+          towerBase = 2;
+        }
+        else if (floorsCount%2 == 0)
+        {
+          towerBase = 1;
+        }
+        visualRight.shapeTransform.SetPositionAndRotation(towerBaseRight[towerBase].position + new Vector3(0, 0.05f * floorsCount, 0), towerBaseRight[towerBase].rotation);
+        visualLeft.shapeTransform.SetPositionAndRotation(towerBaseLeft[towerBase].position + new Vector3(0, 0.05f * floorsCount, 0), towerBaseLeft[towerBase].rotation);
         visualRight.shapeRenderer.enabled = true;
         visualLeft.shapeRenderer.enabled = true;
         floorsCount = Mathf.Max(0, floorsCount + 1);
