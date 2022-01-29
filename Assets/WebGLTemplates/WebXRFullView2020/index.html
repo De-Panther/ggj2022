@@ -30,7 +30,7 @@
     </div>
     <script>
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/{{{ LOADER_FILENAME }}}";
+      var loaderUrl = "alter_loader.js"; // buildUrl + "/{{{ LOADER_FILENAME }}}";
       var config = {
         dataUrl: buildUrl + "/{{{ DATA_FILENAME }}}",
         frameworkUrl: buildUrl + "/{{{ FRAMEWORK_FILENAME }}}",
@@ -65,6 +65,7 @@
       script.src = loaderUrl;
       script.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
+          progress = Math.min(Math.max(progress, 0), 1);
           progressBarFull.style.width = 100 * progress + "%";
         }).then((instance) => {
           unityInstance = instance;
