@@ -540,6 +540,10 @@ public class ControllerInteraction : MonoBehaviour
 
     foreach (Rigidbody contactBody in contactRigidBodies)
     {
+      if (contactBody == null)
+      {
+        continue;
+      }
       distance = (contactBody.gameObject.transform.position - transform.position).sqrMagnitude;
 
       if (distance < minDistance)
