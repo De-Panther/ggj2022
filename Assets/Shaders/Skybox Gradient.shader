@@ -1,5 +1,6 @@
 // Made with Amplify Shader Editor
-// Available at the Unity Asset Store - http://u3d.as/y3X 
+// Available at the Unity Asset Store - http://u3d.as/y3X
+// Shader by Alex Strook - https://www.youtube.com/watch?v=f6zUot73-gg
 Shader "Skybox Gradient"
 {
 	Properties
