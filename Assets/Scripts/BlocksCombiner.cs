@@ -17,6 +17,8 @@ public class BlocksCombiner : MonoBehaviour
   private Transform slotLeft;
   [SerializeField]
   private Visual visualPrefab;
+  [SerializeField]
+  private BoxCollider boxCollider;
 
   private bool slotRightOpen = true;
   private bool slotLeftOpen = true;
@@ -31,6 +33,22 @@ public class BlocksCombiner : MonoBehaviour
 
   private List<Visual> visualsRight = new List<Visual>();
   private List<Visual> visualsLeft = new List<Visual>();
+
+  private Transform _transform;
+
+  Vector3 center;
+  Vector3 halfSize;
+
+  void Awake()
+  {
+    _transform = transform;
+  }
+
+  void Start()
+  {
+    center = _transform.TransformPoint(boxCollider.center);
+    halfSize = boxCollider.size * 0.5f;
+  }
 
   void OnEnable()
   {
@@ -115,6 +133,25 @@ public class BlocksCombiner : MonoBehaviour
       slotLeftBlockData = null;
 
       OnCombine?.Invoke();
+      StartCoroutine(WaitCheckStay());
+    }
+  }
+
+  IEnumerator WaitCheckStay()
+  {
+    yield return null;
+    CheckStay();
+  }
+
+  private void CheckStay()
+  {
+    var colliders = Physics.OverlapBox(center, halfSize, _transform.rotation, 1);
+    for (int i = 0; i < colliders.Length; i++)
+    {
+      if (colliders[i]?.gameObject != null)
+      {
+        OnTriggerEnter(colliders[i]);
+      }
     }
   }
 
@@ -150,6 +187,7 @@ public class BlocksCombiner : MonoBehaviour
         slotLeftOpen = false;
       }
     }
+    TryToCombine();
   }
 
   private void OnTriggerExit(Collider other)
@@ -176,5 +214,6 @@ public class BlocksCombiner : MonoBehaviour
         slotLeftOpen = true;
       }
     }
+    CheckStay();
   }
 }

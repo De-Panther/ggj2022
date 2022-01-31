@@ -76,6 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19488b85987dccd46ac51aafe5e65f11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_zPos: 0.28
 --- !u!114 &539929262128642183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,6 +94,8 @@ MonoBehaviour:
   visual: {fileID: 7040072100794737960}
   visualTransform: {fileID: 1366269459572972998}
   mouseDragObject: {fileID: 6431005926502127255}
+  _rigidbody: {fileID: 7819175669366663612}
+  boxCollider: {fileID: 671180633326709367}
 --- !u!1001 &7444659241614941702
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -16,10 +16,13 @@ public class Block : MonoBehaviour
   private Transform visualTransform;
   [SerializeField]
   private MouseDragObject mouseDragObject;
+  [SerializeField]
+  private Rigidbody _rigidbody;
+  [SerializeField]
+  private BoxCollider boxCollider;
 
   private bool inUse = false;
   private bool isHeld = false;
-  private Transform usedSlot;
 
   void OnEnable()
   {
@@ -36,10 +39,6 @@ public class Block : MonoBehaviour
     isHeld = held;
     if (inUse && !isHeld)
     {
-      if (usedSlot != null)
-      {
-        transform.SetPositionAndRotation(usedSlot.position, usedSlot.rotation);
-      }
       OnInUseDropped?.Invoke();
     }
   }
@@ -85,15 +84,20 @@ public class Block : MonoBehaviour
 
   public void MagnetVisualToSlot(Transform slot)
   {
-    usedSlot = slot;
     inUse = true;
+    boxCollider.enabled = false;
+    _rigidbody.isKinematic = true;
+    transform.SetPositionAndRotation(slot.position, slot.rotation);
+    boxCollider.enabled = true;
     visual.shapeRenderer.enabled = false;
   }
 
   public void ReturnVisual()
   {
-    usedSlot = null;
     inUse = false;
+    boxCollider.enabled = false;
+    _rigidbody.isKinematic = false;
+    boxCollider.enabled = true;
     visual.shapeRenderer.enabled = true;
   }
 

@@ -320,6 +320,7 @@ MonoBehaviour:
   slotRight: {fileID: 1854801286}
   slotLeft: {fileID: 1763563037}
   visualPrefab: {fileID: 496489309965892398, guid: bb60c021fdad9a04cb2a91e097eda482, type: 3}
+  boxCollider: {fileID: 122467048}
 --- !u!1 &442763426
 GameObject:
   m_ObjectHideFlags: 0
