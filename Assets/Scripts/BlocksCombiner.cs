@@ -98,19 +98,9 @@ public class BlocksCombiner : MonoBehaviour
       if (slotRightBlockData.IsColorInverse(slotLeftBlockData)
           ||slotRightBlockData.IsShapeInverse(slotLeftBlockData))
       {
-        //var towerBaseRight = floorsCount%2 == 0 ? towerBaseRight1 : towerBaseRight2;
-        //var towerBaseLeft = floorsCount%2 == 0 ? towerBaseLeft1 : towerBaseLeft2;
-        int towerBase = 0;
-        if (floorsCount%3 == 0)
-        {
-          towerBase = 2;
-        }
-        else if (floorsCount%2 == 0)
-        {
-          towerBase = 1;
-        }
-        visualRight.shapeTransform.SetPositionAndRotation(towerBaseRight[towerBase].position + new Vector3(0, 0.05f * floorsCount, 0), towerBaseRight[towerBase].rotation);
-        visualLeft.shapeTransform.SetPositionAndRotation(towerBaseLeft[towerBase].position + new Vector3(0, 0.05f * floorsCount, 0), towerBaseLeft[towerBase].rotation);
+        int towerBase = floorsCount%3;
+        visualRight.transform.SetPositionAndRotation(towerBaseRight[towerBase].position + new Vector3(0, 0.05f * floorsCount, 0), towerBaseRight[towerBase].rotation);
+        visualLeft.transform.SetPositionAndRotation(towerBaseLeft[towerBase].position + new Vector3(0, 0.05f * floorsCount, 0), towerBaseLeft[towerBase].rotation);
         visualRight.shapeRenderer.enabled = true;
         visualLeft.shapeRenderer.enabled = true;
         floorsCount = Mathf.Max(0, floorsCount + 1);
