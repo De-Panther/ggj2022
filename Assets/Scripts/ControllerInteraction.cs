@@ -506,7 +506,7 @@ public class ControllerInteraction : MonoBehaviour
   {
     currentRigidBody = GetNearestRigidBody();
 
-    if (!currentRigidBody)
+    if (currentRigidBody == null)
       return;
 
     currentRigidBody.MovePosition(transform.position);

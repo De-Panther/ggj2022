@@ -1,20 +1,35 @@
 ﻿using UnityEngine;
+using WebXR;
 
 [RequireComponent(typeof(Rigidbody))]
 public class MouseDragObject : MonoBehaviour
 {
   public System.Action<bool> OnHeld;
 
+  [SerializeField]
+  private float m_zPos = 0.28f;
   private Camera m_currentCamera;
   private Rigidbody m_rigidbody;
   private Vector3 m_screenPoint;
   private Vector3 m_offset;
   private Vector3 m_currentVelocity;
   private Vector3 m_previousPos;
+  private Vector3 m_newPos;
+  private bool m_useFixedPos = false;
 
   void Awake()
   {
     m_rigidbody = GetComponent<Rigidbody>();
+  }
+
+  void OnEnable()
+  {
+    BlocksGenerator.OnWebXRStateChange += HandleOnWebXRStateChange;
+  }
+
+  void OnDisable()
+  {
+    BlocksGenerator.OnWebXRStateChange -= HandleOnWebXRStateChange;
   }
 
   void OnMouseDown()
@@ -41,7 +56,12 @@ public class MouseDragObject : MonoBehaviour
     {
       Vector3 currentScreenPoint = GetMousePosWithScreenZ(m_screenPoint.z);
       m_rigidbody.velocity = Vector3.zero;
-      m_rigidbody.MovePosition(m_currentCamera.ScreenToWorldPoint(currentScreenPoint) + m_offset);
+      m_newPos = m_currentCamera.ScreenToWorldPoint(currentScreenPoint) + m_offset;
+      if (m_useFixedPos)
+      {
+        m_newPos.z = m_zPos;
+      }
+      m_rigidbody.MovePosition(m_newPos);
       m_currentVelocity = (transform.position - m_previousPos) / Time.deltaTime;
       m_previousPos = transform.position;
     }
@@ -70,5 +90,15 @@ public class MouseDragObject : MonoBehaviour
       result = null;
     }
     return result;
+  }
+
+  void HandleOnWebXRStateChange(WebXRState state)
+  {
+    UseFixedPos(state == WebXRState.NORMAL);
+  }
+
+  public void UseFixedPos(bool value)
+  {
+    m_useFixedPos = value;
   }
 }

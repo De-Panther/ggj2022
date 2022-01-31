@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WebXR;
 
 public class BlocksGenerator : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class BlocksGenerator : MonoBehaviour
     blitz,
     zen
   }
+
+  public static System.Action<WebXRState> OnWebXRStateChange;
 
   [SerializeField]
   private Transform portalRight;
@@ -30,14 +33,18 @@ public class BlocksGenerator : MonoBehaviour
   private float nextGenerate = 0f;
   private int pairsGenerated = 0;
 
+  private WebXRState xRState = WebXRState.NORMAL;
+
   void OnEnable()
   {
     BlocksCombiner.OnCombine += HandleOnCombine;
+    WebXRManager.OnXRChange += HandleOnXRChange;
   }
 
   void OnDisable()
   {
     BlocksCombiner.OnCombine -= HandleOnCombine;
+    WebXRManager.OnXRChange -= HandleOnXRChange;
   }
 
   void Start()
@@ -62,9 +69,9 @@ public class BlocksGenerator : MonoBehaviour
     {
       nextGenerate = Time.time + generationRate;
       var right = Instantiate(baseBlock, portalRight.position, Quaternion.identity);
-      right.Init(blocksData[Random.Range(0, blocksData.Length)], true);
+      right.Init(blocksData[Random.Range(0, blocksData.Length)], true, xRState == WebXRState.NORMAL);
       var left = Instantiate(baseBlock, portalLeft.position, Quaternion.identity);
-      left.Init(blocksData[Random.Range(0, blocksData.Length)], false);
+      left.Init(blocksData[Random.Range(0, blocksData.Length)], false, xRState == WebXRState.NORMAL);
       pairsGenerated++;
     }
   }
@@ -82,5 +89,11 @@ public class BlocksGenerator : MonoBehaviour
   void HandleOnCombine()
   {
     pairsGenerated--;
+  }
+
+  void HandleOnXRChange(WebXRState state, int viewsCount, Rect leftRect, Rect rightRect)
+  {
+    xRState = state;
+    OnWebXRStateChange?.Invoke(xRState);
   }
 }

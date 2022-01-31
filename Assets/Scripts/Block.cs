@@ -54,8 +54,9 @@ public class Block : MonoBehaviour
     return isHeld;
   }
 
-  public void Init(BlockData blockData, bool isRight)
+  public void Init(BlockData blockData, bool isRight, bool useFixedPos)
   {
+    mouseDragObject.UseFixedPos(useFixedPos);
     this.blockData = blockData;
     this.isRight = isRight;
     if (isRight)
