@@ -33,7 +33,7 @@
       "url": "https://package.openupm.com"
     },
     "com.de-panther.webxr-interactions": {
-      "version": "0.16.2-preview",
+      "version": "0.16.3-preview",
       "depth": 0,
       "source": "registry",
       "dependencies": {
