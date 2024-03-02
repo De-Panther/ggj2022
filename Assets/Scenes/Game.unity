@@ -383,7 +383,7 @@ PrefabInstance:
     - target: {fileID: 8721391137991888646, guid: 04b410782eeb8244f9ac74368cb99edf, type: 3}
       propertyPath: cameraFollower
       value: 
-      objectReference: {fileID: 8460844154648502866}
+      objectReference: {fileID: 8460844154648502867}
     - target: {fileID: 8721391137991888646, guid: 04b410782eeb8244f9ac74368cb99edf, type: 3}
       propertyPath: leftController
       value: 
@@ -1841,11 +1841,6 @@ Camera:
 --- !u!20 &8460844154648502865 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 8439931368181196933, guid: 789e8568ca448584cb8a96c2980838cf, type: 3}
-  m_PrefabInstance: {fileID: 8460844154648502859}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &8460844154648502866 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1976468911526567432, guid: 789e8568ca448584cb8a96c2980838cf, type: 3}
   m_PrefabInstance: {fileID: 8460844154648502859}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &8460844154648502867 stripped
